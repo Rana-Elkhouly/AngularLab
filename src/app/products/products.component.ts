@@ -18,7 +18,7 @@ export class ProductsComponent implements OnInit {
   isPurchased: boolean;
 
   constructor() {
-    this.Discount = DiscountOffers.Discount10;
+    this.Discount = DiscountOffers.Discount0;
     this.storeName = "My Kitchen";
     this.storeLogo = "Kitchen";
     this.productList = [{
@@ -59,5 +59,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  toggled(){
+    this.isPurchased = !this.isPurchased;
+  }
 }
