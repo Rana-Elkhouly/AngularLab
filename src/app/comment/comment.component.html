@@ -1,0 +1,19 @@
+<p>comment works!</p>
+<button type="button" class="btn btn-danger" (click)="goPrev()">Back Posts Page</button>
+<div >
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Body</th>
+
+            </tr>
+            <tr *ngFor="let comment of comments">
+                <td>{{comment.name}}</td>
+                <td>{{comment.email}}</td>
+                <td>{{comment.body}}</td>
+            </tr>
+        </thead>
+    </table>
+</div>

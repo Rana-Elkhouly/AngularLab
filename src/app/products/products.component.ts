@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DiscountOffers } from '../Shared Classes and types/DiscountOffers';
 import { ICategory } from '../Shared Classes and types/ICategory';
 import { IProduct } from '../Shared Classes and types/IProduct';
+import { ProductServiceService } from '../services/product-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -17,10 +19,10 @@ export class ProductsComponent implements OnInit {
   clientName: string;
   isPurchased: boolean;
 
-  constructor() {
+  constructor(private productService: ProductServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.Discount = DiscountOffers.Discount0;
-    this.storeName = "My Kitchen";
-    this.storeLogo = "Kitchen";
+    this.storeName = "Food";
+    this.storeLogo = "FoodLogo";
     this.productList = [{
       ID: 1,
       Name: "Tomato",
@@ -56,10 +58,25 @@ export class ProductsComponent implements OnInit {
     this.clientName = "Rana";
     this.isPurchased = true;
   }
-
+  prList!: IProduct[];
+  productId: string = '';
+  productObject!: IProduct;
   ngOnInit(): void {
   }
-  toggled(){
+  toggled() {
     this.isPurchased = !this.isPurchased;
+  }
+  update() {
+    this.productObject = this.productService.GetProductById(+this.productId)
+  }
+  renderValues() {
+    // this.prList = this.productService.getAllProducts();
+    this.productService.getAllProducts().subscribe(results => this.prList = results)
+  }
+  Discountfn() {
+    this.router.navigate(['discount'], { relativeTo: this.activatedRoute });
+  }
+  NoDiscount() {
+    this.router.navigate(['nodiscount'], { relativeTo: this.activatedRoute });
   }
 }

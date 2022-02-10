@@ -59,3 +59,38 @@
 <br>
 <input type="text" value="{{Discount | percent}}">
 <br>
+
+
+<button type="button" (click)="Discountfn()" class="btn btn-light" routerLink="/discount">Product With Discount</button>&nbsp;
+<button type="button" (click)="NoDiscount()" class="btn btn-light" routerLink="/nodiscount">Product WithOut Discount</button>
+
+<br>
+<input type="text" [(ngModel)]="productId" (input)="update()" placeholder="Enter Product ID">
+<div *ngIf="productId">
+    <h4>{{productObject.Name}}</h4>
+</div>
+
+<br>
+<button (click)="toggled()"  type="button" class="btn btn-lg btn-outline-danger">Buy Toggle Button</button>
+<h4 *ngIf="isPurchased ;then thenBlock1 , else elseBlock1"></h4>
+<ng-template #thenBlock1>
+    <table style="width:70%">
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        <tr *ngFor="let product of productList">
+            <td>{{product.Name}}</td>
+            <td>{{product.Quantity}}</td>
+            <td>{{product.Price}}</td>
+          </tr>
+    </table>
+
+</ng-template>
+
+<ng-template #elseBlock1>
+    <h5>{{"Thanks for purchasing from our Store " +clientName}}</h5>
+</ng-template>
+
+<router-outlet></router-outlet>

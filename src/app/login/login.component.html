@@ -1,0 +1,29 @@
+<div class="container">
+    <form class="row g-3" #userForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+        <div class="col-md-8">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" [(ngModel)]="userModel.email" 
+          name="txtemail" required #email="ngModel" class="form-control" id="inputEmail4" >
+          <div *ngIf="email.errors &&  email.touched">
+            <div class="alert alert-warning alert-dismissible fade show" *ngIf="email.errors['required']">Email is required</div>
+            <div class="alert alert-warning alert-dismissible fade show" *ngIf="email.errors['pattern']">Must Be A Valid Email</div>
+           </div>
+        </div>
+  
+        <div class="col-md-8">
+          <label for="inputPassword4" class="form-label">Password</label>
+          <input type="password" [(ngModel)]="userModel.password" 
+          name="txtpasw" required [class.is-invalid]="password.invalid && password.touched" 
+          #password="ngModel" class="form-control" id="inputPassword4" required (input)="showPass($event)">
+
+          <div *ngIf="password.value==pass"></div>
+        </div>
+        <br><br><br><br>
+        <div class="col-12">
+          <button type="submit" class="btn btn-lg btn-danger" style="margin-left: 310px;" 
+          [disabled]="userForm.invalid"
+          [class.btn-Success]="userForm.invalid">Login</button>
+        </div>
+        <div *ngIf="show">Congratulations {{userModel.email}}</div>
+      </form>
+  </div>

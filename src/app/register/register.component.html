@@ -1,0 +1,151 @@
+<div class="container">
+  <form class="row g-3" #userForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="col-md-7">
+      <label for="inputText" class="form-label">User Name</label>
+      <input
+        type="text"
+        [(ngModel)]="userModel.name"
+        name="txtName"
+        required
+        pattern="^[A-Za-z]*$"
+        [class.is-invalid]="name.invalid && name.touched"
+        #name="ngModel"
+        class="form-control"
+        id="inputText"
+      />
+      <div *ngIf="name.errors && name.touched">
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="name.errors['required']"
+        >
+          Name is required
+        </div>
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="name.errors['pattern']"
+        >
+          Must Be A Valid Name
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <label for="inputEmail4" class="form-label">Email</label>
+      <input
+        type="email"
+        pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+        [(ngModel)]="userModel.email"
+        name="txtemail"
+        required
+        #email="ngModel"
+        class="form-control"
+        id="inputEmail4"
+      />
+      <div *ngIf="email.errors && email.touched">
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="email.errors['required']"
+        >
+          Email is required
+        </div>
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="email.errors['pattern']"
+        >
+          Must Be A Valid Email
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <label for="inputPassword4" class="form-label">Password</label>
+      <input
+        type="password"
+        [(ngModel)]="userModel.password"
+        name="txtpasw"
+        (input)="checkPassword($event)"
+        required
+        [class.is-invalid]="password.invalid && password.touched"
+        #password="ngModel"
+        class="form-control"
+        id="inputPassword4"
+        required
+      />
+      <div *ngIf="password.errors && password.touched">
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="password.errors['required']"
+        >
+          Password is required
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <label for="inputPassword4" class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        [(ngModel)]="userModel.confPassword"
+        name="txtconfpasw"
+        required
+        [pattern]="pattern"
+        [class.is-invalid]="confPassword.invalid && confPassword.touched"
+        #confPassword="ngModel"
+        class="form-control"
+        id="inputPassword4"
+        required
+      />
+      <div *ngIf="confPassword.errors && confPassword.touched">
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="confPassword.errors['required']"
+        >
+          Confirm Password is required
+        </div>
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="confPassword.errors['pattern']"
+        >
+          Password Don't Match
+        </div>
+      </div>
+    </div>
+    <br /><br /><br /><br />
+    <div class="col-md-7">
+      <select
+        class="custom-select"
+        [(ngModel)]="userModel.ddl"
+        #ddl="ngModel"
+        name="ddl"
+        required
+      >
+        <option selected>I'm Interested In</option>
+
+        <option *ngFor="let social of socials">
+          {{ social }}
+        </option>
+      </select>
+      <div *ngIf="ddl.errors && ddl.touched">
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          *ngIf="ddl.errors['required']"
+        >
+          Interesting is required
+        </div>
+      </div>
+    </div>
+    <br /><br /><br />
+    <div class="col-12">
+      <button
+        type="submit"
+        class="btn btn-lg btn-danger"
+        style="margin-left: 250px"
+        (click)="goPrev()"
+        [disabled]="userForm.invalid"
+        [class.btn-Success]="userForm.invalid"
+      >
+        Registration
+      </button>
+    </div>
+  </form>
+</div>
